@@ -20,4 +20,9 @@ public class Transaction {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Produto: " + this.name + " Preço: " + this.price;
+    }
 }

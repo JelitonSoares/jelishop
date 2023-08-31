@@ -4,6 +4,8 @@ import br.com.jeliton.jelishop.models.Transaction;
 import br.com.jeliton.jelishop.models.User;
 
 import javax.script.ScriptException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +14,7 @@ public class Main {
         boolean exit = false;
 
         Scanner scanner = new Scanner(System.in);
+        List<Transaction> compras = new ArrayList<>();
 
         System.out.println("Qual limite do crédito: ");
         User user = new User(scanner.nextDouble());
@@ -21,12 +24,10 @@ public class Main {
         while (!exit) {
 
             System.out.println("Nome do produto: ");
-            String name = scanner.nextLine();
-            transaction.setName(name);
-
-            
+            String name = scanner.next();
             System.out.println("Preço do produto: ");
             double price = scanner.nextDouble();
+            transaction.setName(name);
             transaction.setPrice(price);
 
 
@@ -36,14 +37,14 @@ public class Main {
             } else {
                 user.setCredit(user.getCredit() - transaction.getPrice());
                 System.out.println(user.getCredit());
-                System.out.println("Compra efetuada!! Deseja continuar ? ");
-                System.out.println("Deseja continuar ou sair ?");
-                String condition = scanner.nextLine();
-                if (condition.equals("n")) {
-                    break;
-                }
+                compras.add(transaction);
+                System.out.println("Compra efetuada!!");
+            }
 
-
+            System.out.println("Deseja continuar ?");
+            if (scanner.next().equals("n")) {
+                System.out.println(compras);
+                exit = true;
             }
         }
 
