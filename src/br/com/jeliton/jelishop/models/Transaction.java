@@ -1,9 +1,18 @@
 package br.com.jeliton.jelishop.models;
 
-public class Transaction {
+import java.util.Comparator;
+import java.util.List;
 
+public class Transaction implements Comparable<Transaction> {
+
+    User user;
     private String name;
     private double price;
+
+    public Transaction (String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -21,8 +30,34 @@ public class Transaction {
         this.price = price;
     }
 
+    public void extract (List<Transaction> list) {
+        System.out.println("""
+                        ******************************
+                                               
+                                  Compras                                  
+                       """);
+        this.printTransactionList(list);
+        System.out.println("""
+                                                                                                        
+                        ******************************
+                        """);
+    }
+
+    public void printTransactionList (List<Transaction> list) {
+        list.forEach(System.out::println);
+    }
     @Override
     public String toString() {
-        return "Produto: " + this.name + " Preço: " + this.price;
+        return this.name + "---------------R$ %.2f".formatted(this.price);
     }
+
+    @Override
+    public int compareTo(Transaction otherTransaction) {
+        if (this.getPrice() > otherTransaction.getPrice()) {
+            return  1;
+        } else if (this.getPrice() < otherTransaction.getPrice()) {
+            return - 1;
+        } else return 0;
+    }
+
 }
