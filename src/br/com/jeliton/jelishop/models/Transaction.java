@@ -1,11 +1,9 @@
 package br.com.jeliton.jelishop.models;
 
-import java.util.Comparator;
+
 import java.util.List;
 
 public class Transaction implements Comparable<Transaction> {
-
-    User user;
     private String name;
     private double price;
 
@@ -14,20 +12,8 @@ public class Transaction implements Comparable<Transaction> {
         this.price = price;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public void extract (List<Transaction> list) {
@@ -53,11 +39,7 @@ public class Transaction implements Comparable<Transaction> {
 
     @Override
     public int compareTo(Transaction otherTransaction) {
-        if (this.getPrice() > otherTransaction.getPrice()) {
-            return  1;
-        } else if (this.getPrice() < otherTransaction.getPrice()) {
-            return - 1;
-        } else return 0;
+        return Double.compare(this.getPrice(), otherTransaction.getPrice());
     }
 
 }
